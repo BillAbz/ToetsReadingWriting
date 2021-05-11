@@ -52,15 +52,21 @@ public class MessageApp {
 
         try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(animalPath.toString()))) {
             objectOutputStream.writeObject(rabbit.toString());
-            BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(animalPath)));
-            String lines=null;
-            while ((lines = reader.readLine())!=null){
-                System.out.println(lines);
-            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(animalPath.toString()))) {
+            String text = (String) inputStream.readObject();
+            System.out.println(text);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
