@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -51,7 +52,8 @@ public class MessageApp {
 
 
         try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(animalPath.toString()))) {
-            objectOutputStream.writeObject(rabbit.toString());
+            objectOutputStream.writeObject(rabbit);
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -60,7 +62,7 @@ public class MessageApp {
         }
 
         try(ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(animalPath.toString()))) {
-            String text = (String) inputStream.readObject();
+            String text = inputStream.readObject().toString();
             System.out.println(text);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
